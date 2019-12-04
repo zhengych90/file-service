@@ -26,7 +26,7 @@ public class StockPriceService {
 	private CompanyRepository companyRepository;
 
 	/**
-	 * Used by function UserLogin
+	 * insert excel data
 	 */
 	public CommonResult insert(List<StockPriceEntity> validDatas) {
 		stockPriceRepository.saveAll(validDatas);
@@ -36,8 +36,11 @@ public class StockPriceService {
 		map.put("record", String.valueOf(validDatas.size()));
 		map.put("companyName", companyName);
 		map.put("stockExchange", validDatas.get(0).getStockExchange());
-		map.put("fromDate", "");
-		map.put("toDate", "");
+		map.put("fromDate", validDatas.get(0).getDate() + " " + validDatas.get(0).getTime());
+		map.put("toDate",
+				validDatas.get(validDatas.size() - 1).getDate() + " " + validDatas
+						.get(validDatas.size() - 1)
+						.getTime());
 		return CommonResult.build(200, "upload success!", map);
 	}
 
