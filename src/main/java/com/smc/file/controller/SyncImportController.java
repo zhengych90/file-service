@@ -16,12 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/import")
 public class SyncImportController {
 
@@ -29,13 +32,13 @@ public class SyncImportController {
 	@Autowired
 	private StockPriceService stockPriceService;
 
-	@RequestMapping("/data")
-	public CommonResult query(@RequestParam MultipartFile uploadfile) {
+	@PostMapping("/data")
+	public CommonResult query(@RequestParam("file") MultipartFile file) {
 		List<StockPriceEntity> validDatas = new ArrayList();
 		try {
 			long time = System.currentTimeMillis();
 			Excel2007ParseResponse parseResponse =
-					new Excel2007Reader<StockPriceEntity>().process(uploadfile.getInputStream(),
+					new Excel2007Reader<StockPriceEntity>().process(file.getInputStream(),
 							new StockPriceImportRowReaderImpl(),
 							1, false);
 			if (!StringUtils.isEmpty(parseResponse.getMessage())) {
