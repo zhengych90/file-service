@@ -3,6 +3,8 @@ package com.smc.file.service.impl;
 import com.smc.file.entity.StockPriceEntity;
 import com.smc.file.utils.excel2007.IRowReader;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
@@ -49,6 +51,7 @@ public class StockPriceImportRowReaderImpl implements IRowReader {
 			// 时间
 			String time = rowData.get(++idx);
 			entity.setTime(time.trim());
+			entity.setDateTime(entity.getDate() + " " + entity.getTime());
 
 			checkCellInfo(sheetNo, curRow, rowData);
 		} catch (RuntimeException e) {

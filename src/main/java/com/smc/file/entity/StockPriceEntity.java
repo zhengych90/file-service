@@ -30,6 +30,9 @@ public class StockPriceEntity extends AuditEntity {
 	@Column(name = "time")
 	private String time;
 
+	@Column(name = "datetime")
+	private String dateTime;
+
 
 	public StockPriceEntity() {
 		super();
@@ -82,5 +85,13 @@ public class StockPriceEntity extends AuditEntity {
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+
+	public String getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
 	}
 }

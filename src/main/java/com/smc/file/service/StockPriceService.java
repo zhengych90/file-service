@@ -4,6 +4,7 @@ import com.smc.file.entity.StockPriceEntity;
 import com.smc.file.repository.CompanyRepository;
 import com.smc.file.repository.StockPriceRepository;
 import com.smc.file.utils.CommonResult;
+import com.smc.file.utils.ResponseCode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,12 +37,10 @@ public class StockPriceService {
 		map.put("record", String.valueOf(validDatas.size()));
 		map.put("companyName", companyName);
 		map.put("stockExchange", validDatas.get(0).getStockExchange());
-		map.put("fromDate", validDatas.get(0).getDate() + " " + validDatas.get(0).getTime());
+		map.put("fromDate", validDatas.get(0).getDateTime());
 		map.put("toDate",
-				validDatas.get(validDatas.size() - 1).getDate() + " " + validDatas
-						.get(validDatas.size() - 1)
-						.getTime());
-		return CommonResult.build(200, "upload success!", map);
+				validDatas.get(validDatas.size() - 1).getDateTime());
+		return CommonResult.build(ResponseCode.SUCCESS, "upload success!", map);
 	}
 
 }

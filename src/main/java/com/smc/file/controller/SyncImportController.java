@@ -42,7 +42,7 @@ public class SyncImportController {
 							new StockPriceImportRowReaderImpl(),
 							1, false);
 			if (!StringUtils.isEmpty(parseResponse.getMessage())) {
-				return CommonResult.build(404, "error");
+				return CommonResult.build(ResponseCode.ERROR_SERVICE_UNAVAILABLE, "please check excel");
 			} else {
 				validDatas.addAll(parseResponse.getDatas());
 				logger.info("总记录数：{},解析耗时（秒）：{}", validDatas.size(),
